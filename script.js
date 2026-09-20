@@ -1,7 +1,7 @@
-// Optional: put a Formspree / Basin / custom API endpoint here.
-// Example: const FORM_ENDPOINT = "https://formspree.io/f/xxxxxxx";
+// Google Apps Script endpoint for SMART franchise leads
 const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbzKxHeNInRhO8sunrmlcjakDUE4OZJl7Skc7hPw9i9t4mCX6rpbgS3lJHnpvN4EkeGd/exec";
 
+// Mobile menu
 const menuButton = document.querySelector('.menu-toggle');
 const mobileMenu = document.querySelector('.mobile-menu');
 
@@ -32,7 +32,7 @@ faqItems.forEach(item => {
   });
 });
 
-// Scroll reveal
+// General scroll reveal
 const revealItems = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver(entries => {
@@ -43,12 +43,64 @@ if ('IntersectionObserver' in window) {
       }
     });
   }, { threshold: 0.12 });
+
   revealItems.forEach(el => observer.observe(el));
 } else {
   revealItems.forEach(el => el.classList.add('visible'));
 }
 
-// Static-site lead form handler
+// Story progress line
+const storyTrack = document.querySelector('.story-track');
+if (storyTrack && 'IntersectionObserver' in window) {
+  const storyObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      storyTrack.classList.add('story-active');
+      storyObserver.disconnect();
+    }
+  }, { threshold: 0.3 });
+  storyObserver.observe(storyTrack);
+}
+
+// Finance bars
+const financeCard = document.querySelector('.finance-card');
+if (financeCard && 'IntersectionObserver' in window) {
+  const financeObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      financeCard.classList.add('animate-bars');
+      financeObserver.disconnect();
+    }
+  }, { threshold: 0.35 });
+  financeObserver.observe(financeCard);
+}
+
+// Collaboration journey progress
+const timeline = document.querySelector('.timeline');
+if (timeline && 'IntersectionObserver' in window) {
+  const timelineObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      timeline.classList.add('timeline-active');
+      timelineObserver.disconnect();
+    }
+  }, { threshold: 0.35 });
+  timelineObserver.observe(timeline);
+}
+
+// Light hero parallax for desktop pointers
+const heroVisual = document.querySelector('.hero-visual');
+if (heroVisual && window.matchMedia('(pointer:fine)').matches) {
+  heroVisual.addEventListener('mousemove', e => {
+    const rect = heroVisual.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    heroVisual.style.transform = `perspective(1000px) rotateY(${x * 2.2}deg) rotateX(${-y * 2.2}deg)`;
+  });
+
+  heroVisual.addEventListener('mouseleave', () => {
+    heroVisual.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+  });
+}
+
+// Lead form
 const leadForm = document.getElementById('leadForm');
 const formStatus = document.getElementById('formStatus');
 
@@ -58,7 +110,7 @@ function isValidIranPhone(value) {
 }
 
 if (leadForm) {
-  leadForm.addEventListener('submit', async (event) => {
+  leadForm.addEventListener('submit', async event => {
     event.preventDefault();
     formStatus.textContent = '';
     formStatus.style.color = '#d9480f';
@@ -76,201 +128,28 @@ if (leadForm) {
       return;
     }
 
-    if (!FORM_ENDPOINT) {
-      formStatus.style.color = '#6f7580';
-      formStatus.textContent = 'فرم آماده است؛ برای ثبت واقعی درخواست‌ها، FORM_ENDPOINT را در script.js تنظیم کنید.';
-      return;
-    }
-
     const submitButton = leadForm.querySelector('button[type="submit"]');
     const oldText = submitButton.innerHTML;
     submitButton.disabled = true;
     submitButton.textContent = 'در حال ارسال...';
 
     try {
-
-  await fetch(FORM_ENDPOINT, {
-    method: 'POST',
-    body: data,
-    mode: 'no-cors'
-  });
-
-  leadForm.reset();
-
-  formStatus.style.color = '#138a5b';
-  formStatus.textContent =
-    'درخواست شما با موفقیت ثبت شد. همکاران ما با شما تماس خواهند گرفت.';
-
-} catch (error) {
-
-  console.error(error);
-
-  formStatus.style.color = '#c92a2a';
-  formStatus.textContent =
-    'ارسال درخواست انجام نشد. لطفاً دوباره تلاش کنید.';
-
-}
-  });
-}
-
-// ==========================================================
-// SMART Motion Enhancements
-// ==========================================================
-
-
-// ----------------------------------------------------------
-// Finance bars animation
-// ----------------------------------------------------------
-
-const financeCard = document.querySelector('.finance-card');
-
-if (financeCard) {
-
-  const financeObserver = new IntersectionObserver(
-    entries => {
-
-      entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-          financeCard.classList.add('animate-bars');
-
-          financeObserver.unobserve(financeCard);
-        }
-
+      await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        body: data,
+        mode: 'no-cors'
       });
 
-    },
-    {
-      threshold: 0.35
+      leadForm.reset();
+      formStatus.style.color = '#138a5b';
+      formStatus.textContent = 'درخواست شما با موفقیت ثبت شد. همکاران ما با شما تماس خواهند گرفت.';
+    } catch (error) {
+      console.error(error);
+      formStatus.style.color = '#c92a2a';
+      formStatus.textContent = 'ارسال درخواست انجام نشد. لطفاً دوباره تلاش کنید.';
+    } finally {
+      submitButton.disabled = false;
+      submitButton.innerHTML = oldText;
     }
-  );
-
-  financeObserver.observe(financeCard);
+  });
 }
-
-
-// ----------------------------------------------------------
-// Timeline progress animation
-// ----------------------------------------------------------
-
-const timeline = document.querySelector('.timeline');
-
-if (timeline) {
-
-  const timelineObserver = new IntersectionObserver(
-    entries => {
-
-      entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-          timeline.classList.add('timeline-active');
-
-          timelineObserver.unobserve(timeline);
-
-        }
-
-      });
-
-    },
-    {
-      threshold: 0.35
-    }
-  );
-
-  timelineObserver.observe(timeline);
-}
-
-
-// ----------------------------------------------------------
-// Hero mouse parallax
-// ----------------------------------------------------------
-
-const heroVisual = document.querySelector('.hero-visual');
-
-if (
-  heroVisual &&
-  window.matchMedia('(pointer:fine)').matches
-) {
-
-  const heroImage =
-    heroVisual.querySelector(':scope > img');
-
-  heroVisual.addEventListener(
-    'mousemove',
-    event => {
-
-      const rect =
-        heroVisual.getBoundingClientRect();
-
-      const x =
-        (event.clientX - rect.left) / rect.width - .5;
-
-      const y =
-        (event.clientY - rect.top) / rect.height - .5;
-
-      heroVisual.style.setProperty(
-        '--mouse-x',
-        x
-      );
-
-      heroVisual.style.setProperty(
-        '--mouse-y',
-        y
-      );
-
-      if (heroImage) {
-
-        heroImage.style.transform =
-          `translate3d(${x * 8}px, ${y * 8}px, 0)`;
-
-      }
-
-    }
-  );
-
-  heroVisual.addEventListener(
-    'mouseleave',
-    () => {
-
-      if (heroImage) {
-
-        heroImage.style.transform =
-          'translate3d(0,0,0)';
-
-      }
-
-    }
-  );
-}
-
-
-// ----------------------------------------------------------
-// Automatic stagger animation
-// ----------------------------------------------------------
-
-const staggerGroups = [
-  '.infra-grid',
-  '.benefit-grid',
-  '.stats-grid',
-  '.timeline'
-];
-
-staggerGroups.forEach(selector => {
-
-  const group =
-    document.querySelector(selector);
-
-  if (!group) return;
-
-  [...group.children].forEach(
-    (child, index) => {
-
-      child.style.transitionDelay =
-        `${Math.min(index * 90, 450)}ms`;
-
-    }
-  );
-
-});

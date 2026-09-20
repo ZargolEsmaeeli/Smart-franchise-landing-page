@@ -1,30 +1,20 @@
-# SMART Franchise Landing Page
+# SMART Franchise Landing Page — Storytelling V3
 
-Static RTL landing page for SMART Franchise / SnappMarket, ready for GitHub Pages.
+Static landing page built with HTML, CSS and vanilla JavaScript for GitHub Pages.
 
-## Files
-- `index.html`
-- `style.css`
-- `script.js`
-- `assets/`
+## Included in this version
+- PowerPoint-style storytelling flow
+- SMART story timeline
+- Redesigned Iran network map
+- Infrastructure section after the network story
+- Franchise role split
+- SnappMarket app / orange-discount section
+- Condensed public-facing collaboration principles from the franchise contract
+- FAQ placeholders ready for approved answers
+- Google Apps Script form endpoint preserved
+- Root-level asset paths for GitHub Pages
 
-## GitHub Pages
-1. Create a GitHub repository.
-2. Upload all files from this folder to the repository root.
-3. Go to **Settings → Pages**.
-4. Under **Build and deployment**, choose **Deploy from a branch**.
-5. Select `main` and `/ (root)` and save.
-
-## Lead form
-GitHub Pages has no server-side form handling. To make the form store real leads, connect it to a service such as Formspree/Basin or your own endpoint.
-
-Open `script.js` and set:
-
-```js
-const FORM_ENDPOINT = "YOUR_ENDPOINT_HERE";
-```
-
-The form already supports validation and POST submission.
-
-## Before production launch
-Verify/update the public business numbers and financial examples in `index.html` before publishing.
+## GitHub Pages deployment
+Upload/replace the files **inside this folder** in the repository root.
+Do not upload the ZIP itself as the website source.
+Keep `index.html`, `style.css`, `script.js`, and all image files at the same level.
