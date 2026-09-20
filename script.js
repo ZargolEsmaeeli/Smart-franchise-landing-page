@@ -112,3 +112,165 @@ if (leadForm) {
 }
   });
 }
+
+// ==========================================================
+// SMART Motion Enhancements
+// ==========================================================
+
+
+// ----------------------------------------------------------
+// Finance bars animation
+// ----------------------------------------------------------
+
+const financeCard = document.querySelector('.finance-card');
+
+if (financeCard) {
+
+  const financeObserver = new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+          financeCard.classList.add('animate-bars');
+
+          financeObserver.unobserve(financeCard);
+        }
+
+      });
+
+    },
+    {
+      threshold: 0.35
+    }
+  );
+
+  financeObserver.observe(financeCard);
+}
+
+
+// ----------------------------------------------------------
+// Timeline progress animation
+// ----------------------------------------------------------
+
+const timeline = document.querySelector('.timeline');
+
+if (timeline) {
+
+  const timelineObserver = new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+          timeline.classList.add('timeline-active');
+
+          timelineObserver.unobserve(timeline);
+
+        }
+
+      });
+
+    },
+    {
+      threshold: 0.35
+    }
+  );
+
+  timelineObserver.observe(timeline);
+}
+
+
+// ----------------------------------------------------------
+// Hero mouse parallax
+// ----------------------------------------------------------
+
+const heroVisual = document.querySelector('.hero-visual');
+
+if (
+  heroVisual &&
+  window.matchMedia('(pointer:fine)').matches
+) {
+
+  const heroImage =
+    heroVisual.querySelector(':scope > img');
+
+  heroVisual.addEventListener(
+    'mousemove',
+    event => {
+
+      const rect =
+        heroVisual.getBoundingClientRect();
+
+      const x =
+        (event.clientX - rect.left) / rect.width - .5;
+
+      const y =
+        (event.clientY - rect.top) / rect.height - .5;
+
+      heroVisual.style.setProperty(
+        '--mouse-x',
+        x
+      );
+
+      heroVisual.style.setProperty(
+        '--mouse-y',
+        y
+      );
+
+      if (heroImage) {
+
+        heroImage.style.transform =
+          `translate3d(${x * 8}px, ${y * 8}px, 0)`;
+
+      }
+
+    }
+  );
+
+  heroVisual.addEventListener(
+    'mouseleave',
+    () => {
+
+      if (heroImage) {
+
+        heroImage.style.transform =
+          'translate3d(0,0,0)';
+
+      }
+
+    }
+  );
+}
+
+
+// ----------------------------------------------------------
+// Automatic stagger animation
+// ----------------------------------------------------------
+
+const staggerGroups = [
+  '.infra-grid',
+  '.benefit-grid',
+  '.stats-grid',
+  '.timeline'
+];
+
+staggerGroups.forEach(selector => {
+
+  const group =
+    document.querySelector(selector);
+
+  if (!group) return;
+
+  [...group.children].forEach(
+    (child, index) => {
+
+      child.style.transitionDelay =
+        `${Math.min(index * 90, 450)}ms`;
+
+    }
+  );
+
+});
