@@ -30,3 +30,377 @@
 @media (max-width:980px){.desktop-nav,.btn-nav{display:none}.menu-toggle{margin-right:auto;width:42px;height:42px;border:1px solid var(--line);background:#fff;border-radius:12px;display:grid;place-content:center;gap:4px}.menu-toggle span{width:20px;height:2px;background:#222;display:block}.mobile-menu{display:grid;max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 20px;background:#fff}.mobile-menu.open{max-height:420px;padding-bottom:20px}.mobile-menu a{padding:10px 0;font-weight:700}.hero-grid,.dual-grid,.footprint-grid,.finance-grid,.faq-grid,.apply-grid{grid-template-columns:1fr}.hero-copy{order:1}.hero-visual{order:0;min-height:420px}.infra-grid{grid-template-columns:1fr}.feature-card{display:grid;grid-template-columns:220px 1fr;column-gap:18px}.feature-image{grid-row:1/4;height:180px}.feature-icon{margin:0;align-self:end}.feature-card h3,.feature-card p{margin-right:0}.benefit-grid{grid-template-columns:repeat(2,1fr)}.roles-grid{grid-template-columns:1fr}.timeline{grid-template-columns:repeat(3,1fr);row-gap:30px}.timeline:before{display:none}.footer-grid{grid-template-columns:1fr;text-align:center}.footer-brand,.footer-links{justify-content:center}.footer-links{flex-wrap:wrap}.footer-copy{justify-self:center}}
 @media (max-width:640px){.container{width:min(100% - 24px,1180px)}.section-pad{padding:68px 0}.nav-wrap{height:66px}.brand img{width:92px}.hero{padding-top:34px}.hero h1{font-size:44px;letter-spacing:-1px}.hero-lead{font-size:16px}.hero-visual{min-height:330px}.hero-badge{font-size:11px;padding:7px 10px}.powered-card{top:2%;left:1%}.powered-card img{width:62px}.stats-grid{grid-template-columns:1fr;padding:8px}.stat-card{border-left:0;border-bottom:1px solid var(--line);justify-content:flex-start}.stat-card:last-child{border-bottom:0}.section-heading h2,.dual-copy h2,.footprint-copy h2,.finance-copy h2,.faq-copy h2,.apply-panel h2{font-size:33px}.feature-card{display:block}.feature-image{height:190px}.feature-icon{margin-top:-24px}.sales-pills{display:grid;grid-template-columns:1fr}.plus{text-align:center}.benefit-grid{grid-template-columns:1fr}.timeline{grid-template-columns:repeat(2,1fr)}.footprint-kpis{grid-template-columns:1fr}.network-visual{min-height:340px}.network-orbit{display:none}.city-dot{font-size:10px}.form-row{grid-template-columns:1fr}.lead-form{padding:20px}.apply-panel{min-height:470px}.footer-brand{flex-wrap:wrap}.powered-footer{border-right:0;padding-right:0}.hero-actions .btn{width:100%}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.btn,.mini-card{transition:none}}
+/* =========================================================
+   SMART — Motion System
+   ========================================================= */
+
+/* ---------- Better scroll reveal ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(35px) scale(.985);
+  transition:
+    opacity .8s cubic-bezier(.2,.8,.2,1),
+    transform .8s cubic-bezier(.2,.8,.2,1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.delay-1 {
+  transition-delay: .12s;
+}
+
+.delay-2 {
+  transition-delay: .24s;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero-copy {
+  animation: heroCopyIn .9s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes heroCopyIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Main store image floating */
+
+.hero-visual > img {
+  animation: storeFloat 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes storeFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+
+/* Orange glow breathing */
+
+.hero-glow {
+  animation: glowPulse 5s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: .75;
+  }
+
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+
+
+/* Hero badges */
+
+.hero-badge.online {
+  animation: badgeFloat1 4.5s ease-in-out infinite;
+}
+
+.hero-badge.offline {
+  animation: badgeFloat2 5.2s ease-in-out infinite;
+}
+
+.powered-card {
+  animation: badgeFloat3 6s ease-in-out infinite;
+}
+
+@keyframes badgeFloat1 {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  50% {
+    transform: translateY(-9px) rotate(-1deg);
+  }
+}
+
+@keyframes badgeFloat2 {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  50% {
+    transform: translateY(8px) rotate(1deg);
+  }
+}
+
+@keyframes badgeFloat3 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 45%;
+  height: 200%;
+  transform: rotate(25deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.32),
+    transparent
+  );
+  transition: left .65s ease;
+}
+
+.btn:hover::after {
+  left: 140%;
+}
+
+
+/* =========================================================
+   FEATURE CARDS
+   ========================================================= */
+
+.feature-card,
+.mini-card,
+.stat-card,
+.finance-card,
+.role-panel {
+  transition:
+    transform .35s cubic-bezier(.2,.8,.2,1),
+    box-shadow .35s ease,
+    border-color .35s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(25,33,46,.11);
+}
+
+.stat-card:hover .stat-icon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.stat-icon {
+  transition: transform .3s cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   NETWORK ORBITS
+   ========================================================= */
+
+.orbit-1 {
+  animation: orbitRotation 35s linear infinite;
+}
+
+.orbit-2 {
+  animation: orbitRotationReverse 48s linear infinite;
+}
+
+@keyframes orbitRotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbitRotationReverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+
+/* city tags */
+
+.city-dot {
+  animation: cityFloat 4s ease-in-out infinite;
+}
+
+.d2 {
+  animation-delay: .4s;
+}
+
+.d3 {
+  animation-delay: .8s;
+}
+
+.d4 {
+  animation-delay: 1.2s;
+}
+
+.d5 {
+  animation-delay: 1.6s;
+}
+
+@keyframes cityFloat {
+  0%,
+  100% {
+    margin-top: 0;
+  }
+
+  50% {
+    margin-top: -7px;
+  }
+}
+
+
+/* =========================================================
+   FINANCE BARS
+   ========================================================= */
+
+.bar i {
+  width: 0;
+  transition: width 1.25s cubic-bezier(.2,.8,.2,1);
+}
+
+.finance-card.animate-bars .bar i {
+  width: var(--w);
+}
+
+
+/* =========================================================
+   TIMELINE
+   ========================================================= */
+
+.timeline::after {
+  content: "";
+  position: absolute;
+  top: 27px;
+  right: 7%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--orange-2),
+    var(--orange)
+  );
+
+  transition: width 1.5s cubic-bezier(.2,.8,.2,1);
+}
+
+.timeline.timeline-active::after {
+  width: 86%;
+}
+
+.step-no {
+  transition:
+    transform .35s cubic-bezier(.2,.8,.2,1),
+    background .35s ease;
+}
+
+.step:hover .step-no {
+  transform: translateY(-5px) scale(1.08);
+}
+
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+
+.faq-item {
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.faq-item:hover {
+  transform: translateY(-2px);
+  border-color: #ffd1bf;
+  box-shadow: 0 10px 24px rgba(20,25,35,.06);
+}
+
+
+/* =========================================================
+   NAV
+   ========================================================= */
+
+.desktop-nav a {
+  position: relative;
+}
+
+.desktop-nav a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -7px;
+
+  width: 0;
+  height: 2px;
+
+  border-radius: 10px;
+  background: var(--orange);
+
+  transition: width .25s ease;
+}
+
+.desktop-nav a:hover::after {
+  width: 100%;
+}
+
+
+/* =========================================================
+   Accessibility
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+}
