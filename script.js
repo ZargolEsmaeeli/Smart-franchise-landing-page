@@ -1,6 +1,6 @@
 // Optional: put a Formspree / Basin / custom API endpoint here.
 // Example: const FORM_ENDPOINT = "https://formspree.io/f/xxxxxxx";
-const FORM_ENDPOINT = "";
+const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbzKxHeNInRhO8sunrmlcjakDUE4OZJl7Skc7hPw9i9t4mCX6rpbgS3lJHnpvN4EkeGd/exec";
 
 const menuButton = document.querySelector('.menu-toggle');
 const mobileMenu = document.querySelector('.mobile-menu');
@@ -88,21 +88,27 @@ if (leadForm) {
     submitButton.textContent = 'در حال ارسال...';
 
     try {
-      const response = await fetch(FORM_ENDPOINT, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-      if (!response.ok) throw new Error('Request failed');
-      leadForm.reset();
-      formStatus.style.color = '#138a5b';
-      formStatus.textContent = 'درخواست شما با موفقیت ارسال شد.';
-    } catch (error) {
-      formStatus.style.color = '#c92a2a';
-      formStatus.textContent = 'ارسال درخواست انجام نشد. لطفاً دوباره تلاش کنید.';
-    } finally {
-      submitButton.disabled = false;
-      submitButton.innerHTML = oldText;
-    }
+
+  await fetch(FORM_ENDPOINT, {
+    method: 'POST',
+    body: data,
+    mode: 'no-cors'
+  });
+
+  leadForm.reset();
+
+  formStatus.style.color = '#138a5b';
+  formStatus.textContent =
+    'درخواست شما با موفقیت ثبت شد. همکاران ما با شما تماس خواهند گرفت.';
+
+} catch (error) {
+
+  console.error(error);
+
+  formStatus.style.color = '#c92a2a';
+  formStatus.textContent =
+    'ارسال درخواست انجام نشد. لطفاً دوباره تلاش کنید.';
+
+}
   });
 }
