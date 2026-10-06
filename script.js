@@ -153,3 +153,15 @@ if (leadForm) {
     }
   });
 }
+
+// Daily sales: digits only, with thousands separators
+const dailySalesInput = document.querySelector('input[name="dailySales"]');
+if (dailySalesInput) {
+  dailySalesInput.addEventListener('input', () => {
+    const digits = dailySalesInput.value
+      .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+      .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+      .replace(/\D/g, '');
+    dailySalesInput.value = digits ? Number(digits).toLocaleString('en-US') : '';
+  });
+}
