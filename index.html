@@ -11,6 +11,38 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <style>
+    html,body{overflow-x:clip}
+    /* --- Update: upcoming cities --- */
+    .city-groups{display:grid;gap:10px;margin:20px 0 22px}
+    .city-groups .city-list{margin:0;align-items:center}
+    .city-groups .city-label{background:none!important;padding:0 0 0 4px!important;color:var(--muted)!important;font-weight:700!important}
+    .city-list span.soon{background:#fff;border:1px dashed #ff9b70;color:#d94913}
+    .map-pulse.soon{background:#fff;border:2px dashed var(--orange);box-shadow:none;animation:none;width:13px;height:13px}
+    .map-pulse.soon:after{display:none}
+    .p-rasht{left:32.6%;top:23.6%}.p-sari{left:52%;top:27.6%}.p-qazvin{left:34.6%;top:30.4%}
+    .map-pulse.soon:before{content:attr(data-name);position:absolute;bottom:17px;left:50%;transform:translateX(-50%);white-space:nowrap;background:#fff;border:1px dashed var(--orange);color:#d94913;border-radius:8px;padding:1px 7px;font-size:10px;font-weight:800;font-style:normal}
+    .map-pulse.p-qazvin:before{bottom:auto;top:17px}
+    .map-legend{position:absolute;z-index:3;bottom:16px;right:16px;display:flex;gap:12px;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;padding:7px 12px;font-size:12px;font-weight:700}
+    .map-legend i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--orange);margin-left:5px;vertical-align:middle}
+    .map-legend i.soon{background:#fff;border:2px dashed var(--orange)}
+    /* --- Update: Iranian goods supply banner --- */
+    .supply-banner{margin-top:26px;display:flex;align-items:center;gap:20px;padding:24px 28px;border-radius:24px;background:linear-gradient(135deg,#ff5a1f,#ff7a38);color:#fff;box-shadow:0 18px 40px rgba(255,90,31,.22)}
+    .supply-banner .sb-icon{flex:0 0 58px;height:58px;border-radius:18px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:26px;font-weight:900}
+    .supply-banner h3{margin:0 0 4px;font-size:22px}
+    .supply-banner p{margin:0;color:#fff1ea;font-size:14px}
+    .supply-banner .sb-tag{margin-right:auto;white-space:nowrap;background:#fff;color:var(--orange);border-radius:999px;padding:8px 16px;font-weight:900;font-size:13px}
+    .role-panel li.key-item{font-weight:800}
+    /* --- Update: orange discounts note --- */
+    .orange-note{max-width:820px;margin:14px auto 0;padding:14px 18px;border-radius:16px;background:var(--orange-soft);color:#b8400f;font-weight:700;font-size:15px;line-height:1.9}
+    /* --- Update: margin highlight as text --- */
+    .margin-highlight.text-only strong{font-size:19px;line-height:1.6;text-align:left}
+    /* --- Update: timeline with SLA --- */
+    .sla-badge{display:inline-flex;align-items:center;gap:10px;margin-top:6px;padding:10px 18px;border-radius:999px;background:#fff;border:1px solid #ffd0bc;box-shadow:0 8px 20px rgba(28,35,47,.05);font-weight:800;color:#c84213}
+    .sla-badge b{font-size:22px;color:var(--orange)}
+    .step-day{display:inline-block;margin-bottom:8px;padding:3px 10px;border-radius:999px;background:var(--orange-soft);color:#d94913;font-size:11px;font-weight:800}
+    @media (max-width:640px){.supply-banner{flex-direction:column;text-align:center;padding:22px}.supply-banner .sb-tag{margin:0}.map-legend{bottom:10px;right:10px;font-size:11px}.margin-highlight.text-only{flex-direction:column;align-items:flex-start}.margin-highlight.text-only strong{text-align:right}}
+  </style>
 </head>
 <body>
   <header class="site-header" id="top">
@@ -119,7 +151,11 @@
         <div class="network-copy reveal">
           <div class="eyebrow">شبکه فعلی اسمارت</div>
           <h2>از یک زیرساخت متمرکز، به شبکه‌ای در کلان‌شهرها</h2>
-          <p>اسمارت در تهران، کرج، مشهد، اصفهان و شیراز حضور دارد و این شبکه روی زیرساخت تأمین و عملیات مشترک توسعه پیدا کرده است.</p>
+          <p>اسمارت در تهران، کرج، مشهد، اصفهان و شیراز حضور دارد و این شبکه روی زیرساخت تأمین و عملیات مشترک توسعه پیدا کرده است. به‌زودی رشت، ساری و قزوین نیز به شبکه اسمارت می‌پیوندند.</p>
+          <div class="city-groups">
+            <div class="city-list"><span class="city-label">شهرهای فعال:</span><span>تهران</span><span>کرج</span><span>مشهد</span><span>اصفهان</span><span>شیراز</span></div>
+            <div class="city-list"><span class="city-label">به‌زودی:</span><span class="soon">رشت</span><span class="soon">ساری</span><span class="soon">قزوین</span></div>
+          </div>
           <div class="footprint-kpis">
             <div><strong>+۱۰,۰۰۰</strong><span>متر مربع فضای انبارش</span></div>
             <div><strong>+۲۵٪</strong><span>تأمین سفارش‌ها در این شهرها</span></div>
@@ -132,6 +168,10 @@
           <i class="map-pulse p-mashhad"></i>
           <i class="map-pulse p-isfahan"></i>
           <i class="map-pulse p-shiraz"></i>
+          <i class="map-pulse soon p-rasht" data-name="رشت" title="رشت (به‌زودی)"></i>
+          <i class="map-pulse soon p-sari" data-name="ساری" title="ساری (به‌زودی)"></i>
+          <i class="map-pulse soon p-qazvin" data-name="قزوین" title="قزوین (به‌زودی)"></i>
+          <div class="map-legend"><span><i></i>فعال</span><span><i class="soon"></i>به‌زودی</span></div>
         </div>
       </div>
     </section>
@@ -163,6 +203,14 @@
             <p>برنامه‌ریزی تأمین، سفارش و توزیع برای پایداری عملیات فروشگاه.</p>
           </article>
         </div>
+        <div class="supply-banner reveal">
+          <div class="sb-icon">✓</div>
+          <div>
+            <h3>تأمین کالای ایرانی، تمام و کمال با اسنپ‌مارکت</h3>
+            <p>تمام نیاز فروشگاه به کالای ایرانی از طریق شبکه تأمین اسنپ‌مارکت پوشش داده می‌شود؛ بدون دغدغه پیدا کردن تأمین‌کننده و مذاکره جداگانه.</p>
+          </div>
+          <span class="sb-tag">تأمین ۱۰۰٪</span>
+        </div>
       </div>
     </section>
 
@@ -179,6 +227,7 @@
             <div class="role-head"><img src="smart-logo.png" alt="Smart" /><span>اسمارت</span></div>
             <ul>
               <li>تعیین تنوع محصولات و برنامه‌ریزی سفارش</li>
+              <li class="key-item">تأمین کامل کالای ایرانی از طریق اسنپ‌مارکت</li>
               <li>شبکه تأمین و مذاکره با تأمین‌کنندگان</li>
               <li>ابزارهای مدیریت موجودی و فروشگاه</li>
               <li>استراتژی فروش آنلاین و تخفیف</li>
@@ -213,7 +262,8 @@
         <div class="section-heading centered reveal app-benefit-heading">
           <div class="eyebrow">مزیت در اپ اسنپ‌مارکت</div>
           <h2>لوگوی قدرت گرفته از اسمارت در اپ، همراه با ظرفیت تخفیف‌های نارنجی</h2>
-          <p>حضور فروشگاه در اسنپ‌مارکت با لوگوی قدرت گرفته از اسمارت تقویت می‌شود و ظرفیت تخفیف‌های نارنجی در اختیار مدل فروش آنلاین فرنچایز قرار می‌گیرد.</p>
+          <p>حضور فروشگاه در اسنپ‌مارکت به همراه لوگوی قدرت گرفته از اسمارت تقویت می‌شود.</p>
+          <p class="orange-note">اسمارت در تخفیف‌های نارنجی مشارکت دارد؛ این تخفیف‌ها به‌صورت پیشرفته و بر پایه داده طراحی می‌شوند تا سهم بیشتری از تخفیف مستقیماً به مشتری نهایی برسد. این ظرفیت اکنون در اختیار فرنچایزهای اسمارت نیز قرار می‌گیرد.</p>
         </div>
 
         <div class="app-showcase-card reveal delay-1">
@@ -225,7 +275,7 @@
 
         <div class="app-benefit-list app-benefit-list-wide reveal delay-2">
           <div><span>01</span><b>نمایش هویت SMART</b><small>تمایز فروشگاه در تجربه آنلاین کاربر</small></div>
-          <div><span>02</span><b>تخفیف‌های نارنجی</b><small>استفاده از ظرفیت کمپین‌های فروش آنلاین</small></div>
+          <div><span>02</span><b>تخفیف‌های نارنجی</b><small>تخفیف داده‌محور با سهم بیشتر برای مشتری نهایی</small></div>
         </div>
       </div>
     </section>
@@ -241,10 +291,10 @@
         </div>
         <div class="finance-card reveal delay-1">
           <div class="bar-item"><div class="bar-label"><span>تخفیفات برندها</span><strong>+۱٪</strong></div><div class="bar"><i style="--w:28%"></i></div></div>
-          <div class="bar-item"><div class="bar-label"><span>تخفیفات فروش</span><strong>+۱.۵٪</strong></div><div class="bar"><i style="--w:38%"></i></div></div>
+          <div class="bar-item"><div class="bar-label"><span>تخفیف فروش آنلاین</span><strong>تا +۲.۵٪</strong></div><div class="bar"><i style="--w:55%"></i></div></div>
           <div class="bar-item"><div class="bar-label"><span>کاهش هزینه نیرو و نرم‌افزار</span><strong>+۱٪</strong></div><div class="bar"><i style="--w:28%"></i></div></div>
           <div class="bar-item"><div class="bar-label"><span>آزادسازی سرمایه در گردش</span><strong>+۵٪</strong></div><div class="bar"><i style="--w:95%"></i></div></div>
-          <div class="margin-highlight"><span>حاشیه سود مطرح‌شده در مدل</span><strong>۱۹٪ تا ۲۱٪</strong></div>
+          <div class="margin-highlight text-only"><span>حاشیه سود</span><strong>بالاتر از میانگین سوپرمارکت‌های محلی</strong></div>
         </div>
       </div>
     </section>
@@ -255,11 +305,10 @@
         <div class="section-heading centered reveal">
           <div class="eyebrow">همکاری شفاف</div>
           <h2>چند اصل مهم قبل از شروع همکاری</h2>
-          <p>جزئیات حقوقی در قرارداد مشخص می‌شود؛ برای لندینگ فقط اصولی را آورده‌ایم که برای تصمیم اولیه شریک فروشگاهی مهم‌اند.</p>
         </div>
         <div class="principles-grid">
           <article class="principle-card reveal"><span>✓</span><h3>موجودی فعلی بررسی می‌شود</h3><p>در شروع همکاری، موجودی موجود فروشگاه بررسی و اقلام قابل عرضه تعیین تکلیف می‌شوند.</p></article>
-          <article class="principle-card reveal delay-1"><span>✓</span><h3>برند و فروش یکپارچه است</h3><p>فعالیت فروشگاه در چارچوب هویت، تنوع محصولات و فرآیندهای SMART انجام می‌شود.</p></article>
+          <article class="principle-card reveal delay-1"><span>✓</span><h3>برند و فروش یکپارچه است</h3><p>فعالیت فروشگاه در چارچوب استانداردها و فرآیندهای اسمارت، با تنوع بالای محصولات و تحت هویت فعلی سوپرمارکت محلی انجام می‌پذیرد.</p></article>
           <article class="principle-card reveal delay-2"><span>✓</span><h3>کیفیت قابل اندازه‌گیری است</h3><p>فروشگاه بر اساس استانداردهای عملیاتی، موجودی، بهداشت و ایمنی محیط و تجربه مشتری پایش می‌شود.</p></article>
           <article class="principle-card reveal"><span>✓</span><h3>مغازه خالی هم قابل راه‌اندازی است</h3><p>اگر فروشگاه خالی از کالا باشد، امکان تأمین کامل محصولات از سمت اسنپ‌مارکت وجود دارد.</p></article>
           <article class="principle-card reveal delay-1"><span>✓</span><h3>استاندارد تجهیزات ارزیابی می‌شود</h3><p>کارشناسان اسمارت قبل از شروع همکاری از فروشگاه بازدید و تجهیزات آن را ارزیابی می‌کنند.</p></article>
@@ -273,14 +322,15 @@
         <div class="section-heading centered reveal">
           <div class="eyebrow">مسیر همکاری</div>
           <h2>از درخواست تا افتتاح فرنچایز اسمارت</h2>
+          <div class="sla-badge">از ثبت درخواست تا افتتاح فقط <b>۱۵ روز</b></div>
         </div>
         <div class="timeline">
-          <div class="step reveal"><div class="step-no">۱</div><h3>ثبت درخواست</h3><p>ارسال اطلاعات اولیه</p></div>
-          <div class="step reveal delay-1"><div class="step-no">۲</div><h3>ارزیابی فروشگاه</h3><p>موقعیت و شرایط فعالیت</p></div>
-          <div class="step reveal delay-2"><div class="step-no">۳</div><h3>مذاکره و قرارداد</h3><p>توافق مدل همکاری</p></div>
-          <div class="step reveal"><div class="step-no">۴</div><h3>آماده‌سازی</h3><p>سیستم و عملیات</p></div>
-          <div class="step reveal delay-1"><div class="step-no">۵</div><h3>اتصال به پلتفرم</h3><p>راه‌اندازی فروش آنلاین</p></div>
-          <div class="step reveal delay-2"><div class="step-no active">۶</div><h3>افتتاح فرنچایز اسمارت</h3><p>شروع فعالیت</p></div>
+          <div class="step reveal"><div class="step-no">۱</div><span class="step-day">روز ۱</span><h3>ثبت درخواست</h3><p>ارسال اطلاعات اولیه</p></div>
+          <div class="step reveal delay-1"><div class="step-no">۲</div><span class="step-day">روز ۲ تا ۴</span><h3>ارزیابی فروشگاه</h3><p>موقعیت و شرایط فعالیت</p></div>
+          <div class="step reveal delay-2"><div class="step-no">۳</div><span class="step-day">روز ۵ تا ۷</span><h3>مذاکره و قرارداد</h3><p>توافق مدل همکاری</p></div>
+          <div class="step reveal"><div class="step-no">۴</div><span class="step-day">روز ۸ تا ۱۲</span><h3>آماده‌سازی</h3><p>سیستم و عملیات</p></div>
+          <div class="step reveal delay-1"><div class="step-no">۵</div><span class="step-day">روز ۱۳ تا ۱۴</span><h3>اتصال به پلتفرم</h3><p>راه‌اندازی فروش آنلاین</p></div>
+          <div class="step reveal delay-2"><div class="step-no active">۶</div><span class="step-day">روز ۱۵</span><h3>افتتاح فرنچایز اسمارت</h3><p>شروع فعالیت</p></div>
         </div>
       </div>
     </section>
